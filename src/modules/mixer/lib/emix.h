@@ -62,6 +62,7 @@ typedef struct _Emix_Sink {
    const char *name;
    Emix_Volume volume;
    Eina_Bool mute;
+   Eina_Bool default_sink;
    Eina_List *ports;
 } Emix_Sink;
 
