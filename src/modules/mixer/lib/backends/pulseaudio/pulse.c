@@ -543,7 +543,7 @@ _source_cb(pa_context *c EINA_UNUSED, const pa_source_info *info,
    EINA_SAFETY_ON_NULL_RETURN(source);
 
    source->idx = info->index;
-   source->base.name = eina_stringshare_add(info->name);
+   source->base.name = eina_stringshare_add(info->description);
    _pa_cvolume_convert(&info->volume, &source->base.volume);
    source->base.volume.channel_names = calloc(source->base.volume.channel_count, sizeof(Emix_Channel));
    for (i = 0; i < source->base.volume.channel_count; ++i)
