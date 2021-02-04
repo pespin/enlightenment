@@ -33,6 +33,7 @@ typedef struct _Emix_Config_Source
    const char *name;
    int mute;
    int volume;
+   int default_source;
 } Emix_Config_Source;
 
 typedef struct _Emix_Config_Port
@@ -70,6 +71,7 @@ _emix_config_dd_new(void)
    E_CONFIG_VAL(c_sourced, Emix_Config_Source, name, STR);
    E_CONFIG_VAL(c_sourced, Emix_Config_Source, mute, INT);
    E_CONFIG_VAL(c_sourced, Emix_Config_Source, volume, INT);
+   E_CONFIG_VAL(c_sourced, Emix_Config_Source, default_source, INT);
 
    cd = E_CONFIG_DD_NEW("Emix_Config", Emix_Config);
 
@@ -277,6 +279,7 @@ emix_config_save_state_get(void)
              if (emsource->volume.channel_count > 0)
                source->volume = emsource->volume.volumes[0];
              source->mute = emsource->mute;
+             source->default_source = emsource->default_source;
              _config->sources = eina_list_append(_config->sources, source);
           }
      }
@@ -382,6 +385,8 @@ emix_config_save_state_restore(void)
              free(v.volumes);
           }
         emix_source_mute_set(emsource, source->mute);
+        if (source->default_source)
+          emix_source_default_set(emsource);
      }
 }
 
